@@ -1,0 +1,2 @@
+def goods():
+    return None
