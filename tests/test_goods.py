@@ -2,8 +2,6 @@ import os
 import pytest
 from utils.goods import Item
 
-path_csv = os.sep.join(["..", "data", "items.csv"])
-
 
 def test_calculate_amount():
     item1 = Item("name", 50, 2)
@@ -22,8 +20,8 @@ def test_apply_discount():
 
 def test_instantiate_from_csv():
     items = Item("name", 100, 5)
-    assert len(items.instantiate_from_csv(path_csv)) == 5
-    assert isinstance(items.instantiate_from_csv(path_csv)[0], Item)
+    assert len(items.instantiate_from_csv()) == 5
+    assert isinstance(items.instantiate_from_csv()[0], Item)
 
 
 def test_is_integer():

@@ -12,10 +12,7 @@ class Item():
         self.__name = __name
         self.price = price
         self.quantity = quantity
-        path = 'data/items.csv'
         self.all.append(self)
-        if len(__name) > 10:
-            raise NameError("Длина названия товара не должна превышать 10 символов!")
 
     def __repr__(self) -> str:
         """Возвращает атрибуты в понятном виде"""
@@ -23,6 +20,16 @@ class Item():
         for dic in self.__dict__:
             text += dic + "=" + str(self.__dict__[dic]) + ", "
         return f"{text[:-2]}"
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value: str):
+        if len(value) > 10:
+            raise NameError('Длина товара превышает 10 символов.')
+        self.__name = value
 
     def calculate_price(self) -> float:
         """Возращается произведение цены и количества товара"""
@@ -34,9 +41,9 @@ class Item():
         return int(self.price)
 
     @classmethod
-    def instantiate_from_csv(cls, path) -> list:
+    def instantiate_from_csv(cls) -> list:
         """Возвращает список объектов класса Goods из csv"""
-        with open(path, "r", newline='') as csvfile:
+        with open('data/items.csv', "r", newline='') as csvfile:
             csv_data = csv.DictReader(csvfile)
             items_list = []
             for item in csv_data:

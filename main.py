@@ -13,7 +13,7 @@ def main():
 
     Item.rate = 0.8
     item1.discount_price()
-    item2.instantiate_from_csv(path_csv)
+    item2.instantiate_from_csv()
 
     print(item1.price)
     print(item2.price)
