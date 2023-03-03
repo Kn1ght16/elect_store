@@ -15,11 +15,15 @@ class Item():
         self.all.append(self)
 
     def __repr__(self) -> str:
-        """Возвращает атрибуты в понятном виде"""
+        """Возвращает атрибуты в понятном виде разработчику"""
         text = ""
         for dic in self.__dict__:
             text += dic + "=" + str(self.__dict__[dic]) + ", "
         return f"{text[:-2]}"
+
+    def __str__(self):
+        """Возвращает атрибуты в понятном виде пользователю."""
+        return f'{self.__name}'
 
     @property
     def name(self):
