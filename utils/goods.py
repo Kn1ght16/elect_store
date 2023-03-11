@@ -40,7 +40,7 @@ class Item():
         return self.price * self.quantity
 
     def discount_price(self) -> float:
-        """Возращается цена со скидкой"""
+        """Возращается цену со скидкой"""
         self.price = self.price * self.rate
         return int(self.price)
 
@@ -59,3 +59,29 @@ class Item():
         """Возвращает True- если число int, иначе - False"""
         return ((type(number) == int) or (type(number) == float)) \
                and (round(number) == number)
+
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+
+
+class Phone(Item):
+
+    def __init__(self, name, price, count, sim):
+        super().__init__(name, price, count)
+        self.sim = sim
+
+    @property
+    def number_of_sim(self):
+        return self.sim
+
+    @number_of_sim.setter
+    def number_of_sim(self, number_of_sim):
+        if number_of_sim == 0:
+            raise ValueError('Количество физических SIM-карт должно быть целым числом больше нуля.')
+        else:
+            self.sim = number_of_sim
+
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity

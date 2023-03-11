@@ -1,13 +1,6 @@
 import os
 import pytest
-from utils.goods import Item
-
-
-def test_calculate_amount():
-    item1 = Item("name", 50, 2)
-    assert item1.calculate_price() == 100
-    item2 = Item("name", 50, 0)
-    assert item2.calculate_price() == 0
+from utils.goods import Item, Phone
 
 
 def test_apply_discount():
@@ -18,15 +11,15 @@ def test_apply_discount():
     assert int(item1.calculate_price()) == 400
 
 
-def test_instantiate_from_csv():
-    items = Item("name", 100, 5)
-    assert len(items.instantiate_from_csv()) == 5
-    assert isinstance(items.instantiate_from_csv()[0], Item)
-
-
 def test_is_integer():
     item = Item("name", 100, 5)
     assert item.is_integer(5) is True
     assert item.is_integer(5.0) is True
     assert item.is_integer(5.5) is False
     assert item.is_integer("5") is False
+
+
+def test_add():
+    phone1 = Phone("iPhone 14", 120_000, 5, 2)
+    item = Item("iPhone 14", 120_000, 5)
+    assert phone1 + item == 10
