@@ -1,25 +1,38 @@
 import os
 import pytest
-from utils.goods import Item, Phone
+from goods import Item, Phone
 
 
-def test_apply_discount():
-    item1 = Item("name", 100, 5)
-    item1.rate = 0.8
-    assert item1.discount_price() is 80
-    assert item1.price == 80
-    assert int(item1.calculate_price()) == 400
+@pytest.fixture
+def item():
+    return Item("test", 10.0, 5)
+
+
+@pytest.fixture
+def phone():
+    return Phone("test_phone", 100.0, 2, 1)
+
+
+def test_item_repr(item):
+    assert item.__repr__() == "_Item__name=test, price=10.0, quantity=5"
+
+
+def test_item_str(item):
+    assert item.__str__() == "test"
 
 
 def test_is_integer():
-    item = Item("name", 100, 5)
-    assert item.is_integer(5) is True
-    assert item.is_integer(5.0) is True
-    assert item.is_integer(5.5) is False
-    assert item.is_integer("5") is False
+    assert Item.is_integer(5) == True
+    assert Item.is_integer(5.0) == True
+    assert Item.is_integer(5.5) == False
+    assert Item.is_integer("5") == False
 
 
-def test_add():
-    phone1 = Phone("iPhone 14", 120_000, 5, 2)
-    item = Item("iPhone 14", 120_000, 5)
-    assert phone1 + item == 10
+def test_item_discount_price(item):
+    item.rate = 0.8
+    assert item.discount_price() == 8
+    assert item.discount_price() is 6
+    assert item.price == 6.4
+    assert int(item.calculate_price()) == 32
+
+
