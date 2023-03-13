@@ -1,6 +1,6 @@
 import os
 import pytest
-from goods import Item, Phone
+from utils.goods import Item, Phone, KeyBoard
 
 
 @pytest.fixture
@@ -36,3 +36,26 @@ def test_item_discount_price(item):
     assert int(item.calculate_price()) == 32
 
 
+def test_item_init(item):
+    assert item.name == 'test'
+    assert item.price == 10.0
+    assert item.quantity == 5
+
+
+@pytest.fixture()
+def keyboard():
+    return KeyBoard('test', 10.0, 5)
+
+
+def test_keyboard_init(keyboard):
+    assert keyboard.name == 'test'
+    assert keyboard.price == 10.0
+    assert keyboard.quantity == 5
+    assert keyboard.language == 'EN'
+
+
+def test_lang_keyboard_change_lang(keyboard):
+    keyboard.change_lang()
+    assert keyboard.language == 'RU'
+    keyboard.change_lang()
+    assert keyboard.language == 'EN'

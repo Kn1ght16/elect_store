@@ -1,5 +1,5 @@
 import os
-from utils.goods import Item, Phone
+from utils.goods import Item, Phone, KeyBoard
 
 path_csv = os.sep.join(["data", "items.csv"])
 
@@ -32,6 +32,12 @@ def main():
     print(phone1)
     print(repr(phone1))
     # phone1.number_of_sim = 0 # проверка
+
+    kb = KeyBoard('Dark Project KD87A', 9600, 5)
+    print(kb)
+    print(kb.language)
+    kb.change_lang()
+    print(kb.language)
 
 
 if __name__ == "__main__":
