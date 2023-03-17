@@ -1,6 +1,10 @@
 import csv
 
 
+class InstantiateCSVError(Exception):
+    pass
+
+
 class Item():
     rate = 1.0
     all = []
@@ -45,14 +49,21 @@ class Item():
         return int(self.price)
 
     @classmethod
-    def instantiate_from_csv(cls) -> list:
+    def instantiate_from_csv(cls):
         """Возвращает список объектов класса Goods из csv"""
-        with open('data/items.csv', "r", newline='') as csvfile:
-            csv_data = csv.DictReader(csvfile)
-            items_list = []
-            for item in csv_data:
-                items_list.append(cls(item['name'], int(item['price']), int(item['quantity'])))
-            return items_list
+        try:
+            with open('data/items.csv', "r", newline='') as csvfile:
+                csv_data = csv.DictReader(csvfile)
+                items_list = []
+                if not (("name" in csv_data.fieldnames) and ("price" in csv_data.fieldnames) and (
+                        "quantity" in csv_data.fieldnames)):
+                    raise InstantiateCSVError('Файл items.csv поврежден')
+                else:
+                    for item in csv_data:
+                        items_list.append(cls(item['name'], int(item['price']), int(item['quantity'])))
+                    return items_list
+        except FileNotFoundError:
+            print('Отсутствует файл item.csv')
 
     @staticmethod
     def is_integer(number) -> bool:

@@ -21,6 +21,17 @@ def test_item_str(item):
     assert item.__str__() == "test"
 
 
+def test_item_instantiate_from_csv():
+    items_list = Item.instantiate_from_csv()
+    assert len(items_list) == 3
+    assert items_list[0].name == 'item1'
+    assert items_list[0].price == 10
+    assert items_list[0].quantity == 5
+    assert items_list[1].name == 'item2'
+    assert items_list[1].price == 20
+    assert items_list[1].quantity == 3
+
+
 def test_is_integer():
     assert Item.is_integer(5) == True
     assert Item.is_integer(5.0) == True
